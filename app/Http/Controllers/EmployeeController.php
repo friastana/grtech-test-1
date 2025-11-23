@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\EmployeeStoreRequest;
+use App\Http\Resources\EmployeeResource;
 use App\Models\Employee;
 use App\Models\User;
 use App\Notifications\EmployeeCreated;
@@ -66,7 +67,7 @@ class EmployeeController extends Controller
         }
 
         return json_encode([
-            'results' => $results,
+            'results' => EmployeeResource::collection($employees),
             'total' => $employees->total(),
         ]);
     }

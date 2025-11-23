@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\CompanyStoreRequest;
+use App\Http\Resources\CompanyResource;
 use App\Models\Company;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
@@ -56,7 +57,7 @@ class CompanyController extends Controller
         $companies = $query->paginate($perPage);
 
         return json_encode([
-            'results' => $companies->items(),
+            'results' => CompanyResource::collection($companies),
             'total' => $companies->total(),
         ]);
     }
