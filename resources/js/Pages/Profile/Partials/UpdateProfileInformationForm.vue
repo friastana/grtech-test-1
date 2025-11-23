@@ -64,6 +64,7 @@ const form = useForm({
                     v-model="form.email"
                     required
                     autocomplete="username"
+                    disabled
                 />
 
                 <InputError class="mt-2" :message="form.errors.email" />

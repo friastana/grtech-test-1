@@ -42,12 +42,14 @@ const showingNavigationDropdown = ref(false);
                                 <NavLink
                                     :href="route('company.index')"
                                     :active="route().current('company.*')"
+                                    v-if="$page.props.auth.user.email == 'admin@grtech.com'"
                                 >
                                     Company
                                 </NavLink>
                                 <NavLink
                                     :href="route('employee.index')"
                                     :active="route().current('employee.*')"
+                                    v-if="$page.props.auth.user.email == 'admin@grtech.com'"
                                 >
                                     Employee
                                 </NavLink>
