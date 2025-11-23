@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\CompanyController;
+use App\Http\Controllers\EmployeeController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
@@ -21,6 +22,9 @@ Route::get('/dashboard', function () {
 Route::middleware('auth')->group(function () {
     Route::resource('company', CompanyController::class)->except(['show', 'edit']);
     Route::get('/company/list', [CompanyController::class, 'list'])->name('company.list');
+
+    Route::resource('employee', EmployeeController::class)->except(['show', 'edit']);
+    Route::get('/employee/list', [EmployeeController::class, 'list'])->name('employee.list');
 
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
