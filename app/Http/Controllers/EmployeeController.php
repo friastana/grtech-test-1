@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\EmployeeStoreRequest;
 use App\Models\Employee;
+use App\Models\User;
+use App\Notifications\EmployeeCreated;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 
@@ -21,12 +23,17 @@ class EmployeeController extends Controller
 
     public function store(EmployeeStoreRequest $request)
     {
-        Employee::create([
+        $employee = Employee::create([
             'full_name' => $request->full_name,
             'company_id' => $request->company_id,
             'email' => $request->email,
             'phone' => $request->phone,
         ]);
+
+        $user = User::where('email', 'admin@grtech.com')
+                    ->first();
+
+        $user->notify(new EmployeeCreated($employee));
 
         return redirect()->route('employee.index');
     }
